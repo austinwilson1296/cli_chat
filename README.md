@@ -1,12 +1,14 @@
 # Real-Time Chat CLI Application Achievement System
 
+## Achievement status: 15/100
+
 ## 1. Foundation Level
 
 ### 🛠️ Achievement: Setup and Initialization (5 Points)
 
-- Create a new Golang project with proper folder structure (`cmd`, `pkg`, `internal`, etc.)
-- Initialize a Go module (`go mod init`)
-- Install essential libraries (e.g., `gorilla/websocket`, `cobra` for CLI)
+- [X] Create a new Golang project with proper folder structure (`cmd`, `pkg`, `internal`, etc.) 
+- [X] Initialize a Go module (`go mod init`)
+- [X] Install essential libraries (e.g., `gorilla/websocket`, `cobra` for CLI)
 
 ### 🛠️ Achievement: User Registration & Login (10 Points)
 
