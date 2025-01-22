@@ -1,42 +1,67 @@
 package cmd
 
 import (
-  "fmt"
-  "database/sql"
-  "github.com/austinwilson1296/cli_chat/internal/auth"
+	"context"
+	"database/sql"
+	"fmt"
+	"log"
+	"github.com/austinwilson1296/cli_chat/internal/auth"
 	"github.com/austinwilson1296/cli_chat/internal/database"
-  "github.com/spf13/cobra"
+	"github.com/google/uuid"
+	_ "github.com/mattn/go-sqlite3"
+	"github.com/spf13/cobra"
 )
 
+
+
 func init() {
-  rootCmd.AddCommand(addUserCmd)
-  addUserCmd.PersistentFlags().String("username","","username to register")
-  addUserCmd.PersistentFlags().String("password","","password to register")
+	rootCmd.AddCommand(addUserCmd)
+	addUserCmd.Flags().String("u", "", "Username to register")
+	addUserCmd.Flags().String("p", "", "Password to register")
 }
 
 var addUserCmd = &cobra.Command{
-  Use:   "Create User",
-  Short: "Register a user for CLI Chat App",
-  Run: func(cmd *cobra.Command, args []string) {
-	
-    username,_ := cmd.Flags().GetString("username")
-	password,_ := cmd.Flags().GetString("password")
+	Use:   "add-user",
+	Short: "Register a user for CLI Chat App",
+	Run: func(cmd *cobra.Command, args []string) {
+		// Get flags
+		username, _ := cmd.Flags().GetString("u")
+		password, _ := cmd.Flags().GetString("p")
 
-	if username == "" || password == ""{
-		fmt.Printf("Username and Password cannot be empty")
-		return
-	}
+		// Validate inputs
+		if username == "" || password == "" {
+			fmt.Println("Error: Username and Password cannot be empty.")
+			return
+		}
 
-	userID := auth.GenerateRandomId(10)
+		hashPass,err := auth.HashPassword(password)
+		if err != nil{
+			fmt.Println("unable to hash password")
+		}
 
-	user := database.CreateUserParams{
-		ID: int64(userID),
-		Username: sql.NullString{String: username,Valid: true},
-		Password: sql.NullString{String: password,Valid: true},
-	}
+		userID := uuid.New()
+		// Initialize database connection
+		db, err := sql.Open("sqlite3", File)
+		if err != nil {
+			log.Fatalf("Unable to connect to the database: %v", err)
+		}
+		defer db.Close()
 
-	fmt.Printf("%v",user)
-  },
+		// Initialize queries
+		DbQuery = database.New(db)
 
+		// Create user
+		user := database.CreateUserParams{
+			ID: userID,
+			Username: username,
+			Password: hashPass,
+		}
 
+		err = DbQuery.CreateUser(context.Background(), user)
+		if err != nil {
+			log.Fatalf("Unable to create user: %v", err)
+		}
+
+		fmt.Printf("User '%s' created successfully.\n", username)
+	},
 }

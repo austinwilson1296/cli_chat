@@ -1,8 +1,8 @@
 -- +goose Up
 CREATE TABLE users(
-    id INTEGER PRIMARY KEY,
-    username TEXT,
-    password TEXT
+    id UUID PRIMARY KEY,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
 );
 
 -- +goose Down

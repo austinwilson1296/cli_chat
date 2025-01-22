@@ -7,7 +7,6 @@ package database
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createUser = `-- name: CreateUser :exec
@@ -20,9 +19,9 @@ VALUES (
 `
 
 type CreateUserParams struct {
-	ID       int64
-	Username sql.NullString
-	Password sql.NullString
+	ID       interface{}
+	Username string
+	Password string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
@@ -32,11 +31,11 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
 
 const getUser = `-- name: GetUser :one
 SELECT id, username, password FROM users
-WHERE id = ?
+WHERE username = ?
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) {
-	row := q.db.QueryRowContext(ctx, getUser, id)
+func (q *Queries) GetUser(ctx context.Context, username string) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUser, username)
 	var i User
 	err := row.Scan(&i.ID, &i.Username, &i.Password)
 	return i, err

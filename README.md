@@ -12,7 +12,7 @@
 
 ### 🛠️ Achievement: User Registration & Login (10 Points)
 
-- Implement a way to register users (username and password stored securely)
+- [X] Implement a way to register users (username and password stored securely)
 - Implement login functionality (e.g., session-based or token-based authentication)
 - Create a mock database (e.g., JSON file, SQLite, or in-memory map)
 

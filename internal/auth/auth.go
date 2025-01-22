@@ -1,17 +1,19 @@
 package auth
 
 import (
-	"crypto/rand"
-	"fmt"
+	"golang.org/x/crypto/bcrypt"
 )
 
-func GenerateRandomId(numBits int) int {
-	num := make([]byte,numBits)
-
-	randNum,err := rand.Read(num)
+// HashPassword -
+func HashPassword(password string) (string, error) {
+	dat, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		fmt.Println("error:",err)
-		return 0
+		return "", err
 	}
-	return int(randNum)
+	return string(dat), nil
+}
+
+// CheckPasswordHash -
+func CheckPasswordHash(password, hash string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 }

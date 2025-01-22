@@ -4,12 +4,8 @@
 
 package database
 
-import (
-	"database/sql"
-)
-
 type User struct {
-	ID       int64
-	Username sql.NullString
-	Password sql.NullString
+	ID       interface{}
+	Username string
+	Password string
 }
