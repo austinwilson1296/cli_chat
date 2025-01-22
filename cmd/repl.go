@@ -14,9 +14,10 @@ func StartRepl(rootCmd *cobra.Command) {
 	clear.Stdout = os.Stdout
 	clear.Run()
     reader := bufio.NewReader(os.Stdin)
-    fmt.Println("\nWelcome to the Party 😀!\n\n Type 'exit' to quit.🚪")
+	PrintBanner()
+    fmt.Println("\nWelcome to the Party 😀!\n\n Type 'exit' to quit.🚪\n\n")
     for {
-        fmt.Print(">> ")
+        fmt.Print("🎶 ")
         input, err := reader.ReadString('\n')
         if err != nil {
             fmt.Println("Error reading input:", err)
