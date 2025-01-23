@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"log"
 	"os"
-	
 
 	"github.com/austinwilson1296/cli_chat/internal/auth"
 	"github.com/austinwilson1296/cli_chat/internal/database"
+	"github.com/austinwilson1296/cli_chat/utils"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
@@ -58,10 +58,13 @@ var loginCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-
+		stateUser := utils.User{
+			Username: username,
+		}
 
 		fmt.Printf("User '%s' logged in successfully.\n\n", username)
-		
+		utils.State.SetUser(&stateUser)
+		utils.State.UpdateLastActive()
 		StartRepl(rootCmd)
 	},
 }

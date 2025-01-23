@@ -1,0 +1,30 @@
+.
+├── chatcli.db
+├── cli_chat
+├── cmd
+│   ├── login.go
+│   ├── register.go
+│   ├── repl.go
+│   └── root.go
+├── go.mod
+├── go.sum
+├── internal
+│   ├── auth
+│   │   └── auth.go
+│   └── database
+│       ├── db.go
+│       ├── models.go
+│       └── users.sql.go
+├── main.go
+├── README.md
+├── sql
+│   ├── queries
+│   │   └── users.sql
+│   └── schema
+│       └── 001_users.sql
+├── sqlc.yaml
+├── tree.txt
+└── utils
+    └── banner.go
+
+9 directories, 19 files

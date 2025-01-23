@@ -7,6 +7,7 @@ import (
     "strings"
 	"os/exec"
     "github.com/spf13/cobra"
+	"github.com/austinwilson1296/cli_chat/utils"
 )
 
 func StartRepl(rootCmd *cobra.Command) {
@@ -14,8 +15,8 @@ func StartRepl(rootCmd *cobra.Command) {
 	clear.Stdout = os.Stdout
 	clear.Run()
     reader := bufio.NewReader(os.Stdin)
-	PrintBanner()
-    fmt.Println("\nWelcome to the Party 😀!\n\n Type 'exit' to quit.🚪\n\n")
+	utils.PrintBanner()
+    fmt.Println("Welcome to the Party 😀!\n Type 'exit' to quit.🚪")
     for {
         fmt.Print("🎶 ")
         input, err := reader.ReadString('\n')
@@ -27,6 +28,7 @@ func StartRepl(rootCmd *cobra.Command) {
         input = strings.TrimSpace(input)
         if input == "exit" {
             fmt.Println("Goodbye!")
+			utils.State.Logout()
             break
         }
 
