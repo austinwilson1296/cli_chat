@@ -4,8 +4,19 @@
 
 package database
 
+import (
+	"database/sql"
+)
+
+type Room struct {
+	RoomID      string
+	RoomName    string
+	Description sql.NullString
+	RoomOwner   string
+}
+
 type User struct {
-	ID       interface{}
+	ID       string
 	Username string
 	Password string
 }

@@ -19,7 +19,7 @@ VALUES (
 `
 
 type CreateUserParams struct {
-	ID       interface{}
+	ID       string
 	Username string
 	Password string
 }

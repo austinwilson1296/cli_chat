@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-
 	"github.com/austinwilson1296/cli_chat/internal/auth"
 	"github.com/austinwilson1296/cli_chat/internal/database"
 	"github.com/austinwilson1296/cli_chat/utils"
@@ -57,9 +56,12 @@ var loginCmd = &cobra.Command{
 			fmt.Printf("incorrect password for user: %s\n",username)
 			os.Exit(1)
 		}
+		
+
 
 		stateUser := utils.User{
 			Username: username,
+			UserID: user.ID,
 		}
 
 		fmt.Printf("User '%s' logged in successfully.\n\n", username)

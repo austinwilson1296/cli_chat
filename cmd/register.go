@@ -37,9 +37,12 @@ var addUserCmd = &cobra.Command{
 		hashPass,err := auth.HashPassword(password)
 		if err != nil{
 			fmt.Println("unable to hash password")
+			return
 		}
 
 		userID := uuid.New()
+
+		userIdString := userID.String()
 		// Initialize database connection
 		db, err := sql.Open("sqlite3", File)
 		if err != nil {
@@ -52,14 +55,15 @@ var addUserCmd = &cobra.Command{
 
 		// Create user
 		user := database.CreateUserParams{
-			ID: userID,
+			ID: userIdString,
 			Username: username,
 			Password: hashPass,
 		}
 
 		err = DbQuery.CreateUser(context.Background(), user)
 		if err != nil {
-			log.Fatalf("Unable to create user: %v", err)
+			fmt.Printf("Unable to create user: %v", err)
+			return
 		}
 
 		fmt.Printf("User '%s' created successfully.\n", username)

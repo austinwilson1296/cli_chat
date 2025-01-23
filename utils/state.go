@@ -3,7 +3,7 @@ package utils
 import (
 	"sync"
 	"time"
-	
+
 )
 
 
@@ -16,6 +16,7 @@ type UserState struct {
 
 type User struct{
 	Username string
+	UserID string
 }
 
 
