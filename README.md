@@ -94,4 +94,3 @@
 - Integrate testing frameworks to cover key features
 - Add encryption for messages in transit
 
-Good luck earning your **100 points** and building this **real-time chat CLI application!** Let me know your progress and what achievement you're working on. 🚀
